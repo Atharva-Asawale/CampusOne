@@ -1,0 +1,26 @@
+# Tasks: Phase 1 Implementation
+
+- `[x]` **1. Build Configuration & Dependencies**
+    - `[x]` Update `libs.versions.toml` with modern stable versions
+    - `[x]` Configure `app/build.gradle.kts` (Namespace, Compose, Plugins, Dependencies)
+    - `[x]` Sync Gradle
+- `[x]` **2. Core Infrastructure & DI**
+    - `[x]` Create `CampusOneApplication` and annotate with `@HiltAndroidApp`
+    - `[x]` Define `UserRole` enum and `UiState` base in `core/common`
+    - `[x]` Set up Hilt modules for Network, Database, and DataStore stubs in `core`
+- `[x]` **3. Design System**
+    - `[x]` Define `Color.kt`, `Type.kt`, `Dimensions.kt`
+    - `[x]` Implement `Theme.kt` with Light/Dark support
+    - `[x]` Create basic reusable components (Button, Card)
+- `[x]` **4. Navigation Foundation**
+    - `[x]` Define `@Serializable` routes in `core/navigation`
+    - `[x]` Create `AppNavGraph.kt` skeleton
+- `[x]` **5. Initial Screens (Presentation Layer)**
+    - `[x]` **Auth**: `LoginScreen`, `AuthViewModel`, `AuthUiState`
+    - `[x]` **Dashboard**: `StudentDashboardScreen`, `AdminDashboardScreen` (with stubs for bottom nav tabs)
+    - `[x]` **Stubs**: `Events`, `Clubs`, `Chat`, `Profile`, `Placements`, `Sports` placeholder screens
+- `[x]` **6. Main Activity & Final Wiring**
+    - `[x]` Update `MainActivity.kt` to host `AppNavGraph`
+    - `[x]` Update `AndroidManifest.xml`
+- `[x]` **7. Verification**
+    - `[x]` Run build and verify on device
