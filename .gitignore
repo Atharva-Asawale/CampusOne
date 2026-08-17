@@ -12,4 +12,7 @@
 /captures
 .externalNativeBuild
 .cxx
-local.properties
+
+# Project specific ignores
+.artifacts/
+.kotlin/
