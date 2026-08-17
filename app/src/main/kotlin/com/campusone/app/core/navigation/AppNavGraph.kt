@@ -15,6 +15,7 @@ import com.campusone.app.feature.dashboard.StudentDashboardScreen
 @Composable
 fun AppNavGraph() {
     val navController = rememberNavController()
+    val authViewModel: AuthViewModel = hiltViewModel()
 
     NavHost(
         navController = navController,
@@ -22,8 +23,15 @@ fun AppNavGraph() {
     ) {
         composable<Route.Splash> {
             SplashScreen(
-                onTimeout = {
+                viewModel = authViewModel,
+                onNavigateToLogin = {
                     navController.navigate(Route.Login) {
+                        popUpTo(Route.Splash) { inclusive = true }
+                    }
+                },
+                onNavigateToDashboard = { role ->
+                    val dest = if (role == UserRole.STUDENT) Route.StudentDashboard else Route.AdminDashboard
+                    navController.navigate(dest) {
                         popUpTo(Route.Splash) { inclusive = true }
                     }
                 }
@@ -31,9 +39,8 @@ fun AppNavGraph() {
         }
         
         composable<Route.Login> {
-            val viewModel: AuthViewModel = hiltViewModel()
             LoginScreen(
-                viewModel = viewModel,
+                viewModel = authViewModel,
                 onLoginSuccess = { role ->
                     val dest = if (role == UserRole.STUDENT) Route.StudentDashboard else Route.AdminDashboard
                     navController.navigate(dest) {
@@ -44,11 +51,27 @@ fun AppNavGraph() {
         }
         
         composable<Route.StudentDashboard> {
-            StudentDashboardScreen()
+            StudentDashboardScreen(
+                onLogout = {
+                    authViewModel.logout {
+                        navController.navigate(Route.Login) {
+                            popUpTo(Route.StudentDashboard) { inclusive = true }
+                        }
+                    }
+                }
+            )
         }
         
         composable<Route.AdminDashboard> {
-            AdminDashboardScreen()
+            AdminDashboardScreen(
+                onLogout = {
+                    authViewModel.logout {
+                        navController.navigate(Route.Login) {
+                            popUpTo(Route.AdminDashboard) { inclusive = true }
+                        }
+                    }
+                }
+            )
         }
     }
 }

@@ -34,7 +34,9 @@ sealed class BottomNavItem(
 }
 
 @Composable
-fun StudentDashboardScreen() {
+fun StudentDashboardScreen(
+    onLogout: () -> Unit
+) {
     val navController = rememberNavController()
     val items = listOf(
         BottomNavItem.Home,
@@ -78,7 +80,9 @@ fun StudentDashboardScreen() {
             composable<Route.Events> { EventsScreen() }
             composable<Route.Clubs> { ClubsScreen() }
             composable<Route.Chat> { ChatScreen() }
-            composable<Route.Profile> { ProfileScreen() }
+            composable<Route.Profile> { 
+                ProfileScreen(onLogout = onLogout) 
+            }
         }
     }
 }
